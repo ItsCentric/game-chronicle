@@ -25,6 +25,12 @@ func init() {
 		log.Fatal("Error initializing database:", err)
 	}
 	database = db
+
+	var bpfObjects track_processesObjects
+	if err := loadTrack_processesObjects(&bpfObjects, nil); err != nil {
+		log.Fatalf("loading bpf objects: %v", err)
+	}
+	defer bpfObjects.Close()
 }
 
 // startup is called at application startup
